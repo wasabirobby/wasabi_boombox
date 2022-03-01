@@ -178,9 +178,3 @@ RegisterNetEvent('wasabi_boombox:syncActive')
 AddEventHandler('kn:speaker:syncActive', function(activeBoxes)
     activeRadios = activeBoxes
 end)
-
-
-
-
-
-

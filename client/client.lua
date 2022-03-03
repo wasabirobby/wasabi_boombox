@@ -79,6 +79,9 @@ end)
 RegisterNetEvent('wasabi_boombox:deleteObj', function(netId)
     if DoesEntityExist(NetToObj(netId)) then
         DeleteObject(NetToObj(netId))
+        if not DoesEntityExist(NetToObj(netId)) then
+            TriggerServerEvent('wasabi_boombox:objDeleted')
+        end
     end   
 end)
 

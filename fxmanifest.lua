@@ -4,6 +4,8 @@ game 'gta5'
 
 description "ESX Boombox"
 
+version '1.0.1'
+
 author 'wasabirobby#5110'
 
 client_scripts {

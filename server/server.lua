@@ -10,8 +10,11 @@ ESX.RegisterUsableItem(Config.boomboxItem, function(source)
 end)
 
 RegisterServerEvent('wasabi_boombox:deleteObj', function(netId)
-    local xPlayer = ESX.GetPlayerFromId(source)
     TriggerClientEvent('wasabi_boombox:deleteObj', -1, netId)
+end)
+
+RegisterServerEvent('wasabi_boombox:objDeleted', function()
+    local xPlayer = ESX.GetPlayerFromId(source)
     xPlayer.addInventoryItem(Config.boomboxItem, 1)
 end)
 

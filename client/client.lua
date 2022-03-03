@@ -175,6 +175,6 @@ AddEventHandler('wasabi_boombox:playMenu', function(data)
 end)
 
 RegisterNetEvent('wasabi_boombox:syncActive')
-AddEventHandler('kn:speaker:syncActive', function(activeBoxes)
+AddEventHandler('wasabi_boombox:syncActive', function(activeBoxes)
     activeRadios = activeBoxes
 end)

@@ -81,7 +81,7 @@ AddEventHandler('wasabi_boombox:soundStatus', function(type, musicId, data)
 end)
 
 AddEventHandler('wasabi_boombox:interact', function()
-    local pedCoords = GetEntityCoords(cache.ped)
+    local pedCoords = GetEntityCoords(PlayerPedId())
     local radio = GetClosestObjectOfType(pedCoords, 5.0, `prop_boombox_01`, false)
     local radioCoords = GetEntityCoords(radio)
     interactBoombox(radio, radioCoords)

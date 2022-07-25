@@ -42,7 +42,7 @@ boomboxPlaced = function(obj)
 		while true do
 			if DoesEntityExist(obj) and not targetPlaced then
 				exports.qtarget:AddBoxZone("boomboxzone", coords, 1, 1, {
-					name="BoomboxZone",
+					name="boomboxzone",
 					heading=heading,
 					debugPoly=false,
 					minZ=coords.z-0.9,

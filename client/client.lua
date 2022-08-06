@@ -64,11 +64,16 @@ AddEventHandler('wasabi_boombox:soundStatus', function(type, musicId, data)
                 xSound:Position(musicId, data.position)
             end
         end
+				
         if type == "play" then
             xSound:PlayUrlPos(musicId, data.link, data.volume, data.position)
             xSound:Distance(musicId, tonumber(data.distance))
             xSound:setVolume(musicId, tonumber(data.volume))
         end
+				
+        if type == "distance" then
+            xSound:Distance(musicId, data.distance)
+        end				
 
         if type == "volume" then
             xSound:setVolume(musicId, data.volume)

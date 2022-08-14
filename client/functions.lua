@@ -34,45 +34,89 @@ hasBoomBox = function(radio)
     end)
 end
 
-boomboxPlaced = function(obj)
-	local coords = GetEntityCoords(obj)
-	local heading = GetEntityHeading(obj)
-	local targetPlaced = false
-    CreateThread(function()
-		while true do
-			if DoesEntityExist(obj) and not targetPlaced then
-				exports.qtarget:AddBoxZone("boomboxzone", coords, 1, 1, {
-					name="boomboxzone",
-					heading=heading,
-					debugPoly=false,
-					minZ=coords.z-0.9,
-					maxZ=coords.z+0.9
-				}, {
-					options = {
-						{
-							event = 'wasabi_boombox:interact',
-							icon = 'fas fa-hand-paper',
-							label = 'Interact',
-						},
-						{
-							event = 'wasabi_boombox:pickup',
-							icon = 'fas fa-volume-up',
-							label = 'Pick Up'
-						}
 
-					},
-                    job = 'all',
-					distance = 1.5
-				})
-				targetPlaced = true
-			elseif not DoesEntityExist(obj) then
-				exports.qtarget:RemoveZone('boomboxzone')
-				targetPlaced = false
-				break
-			end
-			Wait(1000)
-		end
-	end)
+if Config.Framework == "ESX" then
+    boomboxPlaced = function(obj)
+        local coords = GetEntityCoords(obj)
+        local heading = GetEntityHeading(obj)
+        local targetPlaced = false
+        CreateThread(function()
+            while true do
+                if DoesEntityExist(obj) and not targetPlaced then
+                    exports.qtarget:AddBoxZone("boomboxzone", coords, 1, 1, {
+                        name="boomboxzone",
+                        heading=heading,
+                        debugPoly=false,
+                        minZ=coords.z-0.9,
+                        maxZ=coords.z+0.9
+                    }, {
+                        options = {
+                            {
+                                event = 'wasabi_boombox:interact',
+                                icon = 'fas fa-hand-paper',
+                                label = 'Interact',
+                            },
+                            {
+                                event = 'wasabi_boombox:pickup',
+                                icon = 'fas fa-volume-up',
+                                label = 'Pick Up'
+                            }
+    
+                        },
+                        job = 'all',
+                        distance = 1.5
+                    })
+                    targetPlaced = true
+                elseif not DoesEntityExist(obj) then
+                    exports.qtarget:RemoveZone('boomboxzone')
+                    targetPlaced = false
+                    break
+                end
+                Wait(1000)
+            end
+        end)
+    end
+elseif Config.Framework == "QB" then
+    boomboxPlaced = function(obj)
+        local coords = GetEntityCoords(obj)
+        local heading = GetEntityHeading(obj)
+        local targetPlaced = false
+        CreateThread(function()
+            while true do
+                if DoesEntityExist(obj) and not targetPlaced then
+                    exports['qb-target']:AddBoxZone("boomboxzone", coords, 1, 1, {
+                        name="boomboxzone",
+                        heading=heading,
+                        debugPoly=false,
+                        minZ=coords.z-0.9,
+                        maxZ=coords.z+0.9
+                    }, {
+                        options = {
+                            {
+                                event = 'wasabi_boombox:interact',
+                                icon = 'fas fa-hand-paper',
+                                label = 'Interact',
+                            },
+                            {
+                                event = 'wasabi_boombox:pickup',
+                                icon = 'fas fa-volume-up',
+                                label = 'Pick Up'
+                            }
+    
+                        },
+                        job = 'all',
+                        distance = 1.5
+                    })
+                    targetPlaced = true
+                elseif not DoesEntityExist(obj) then
+                    exports['qb-target']:RemoveZone('boomboxzone')
+                    targetPlaced = false
+                    break
+                end
+                Wait(1000)
+            end
+        end)
+    end
 end
 
 interactBoombox = function(radio, radioCoords)
@@ -179,35 +223,70 @@ selectSavedSong = function(data)
     lib.showContext('selectSavedSong')
 end
 
-savedSongsMenu = function(radio)
-    ESX.TriggerServerCallback('wasabi_boombox:getSavedSongs', function(cb)
-        local radio = radio.id
-        local Options = {
-            {
-                title = 'Save A Song',
-                description = 'Save a song to play later',
-                arrow = true,
-                event = 'wasabi_boombox:saveSong',
-                args = {id = radio}
-            }
-        }
-        if cb then
-            for i=1, #cb do
-                print(radio)
-                table.insert(Options, {
-                    title = cb[i].label,
-                    description = '',
+if Config.Framework == "ESX" then
+    savedSongsMenu = function(radio)
+        ESX.TriggerServerCallback('wasabi_boombox:getSavedSongs', function(cb)
+            local radio = radio.id
+            local Options = {
+                {
+                    title = 'Save A Song',
+                    description = 'Save a song to play later',
                     arrow = true,
-                    event = 'wasabi_boombox:selectSavedSong',
-                    args = {id = radio, link = cb[i].link, label = cb[i].label}
-                })
+                    event = 'wasabi_boombox:saveSong',
+                    args = {id = radio}
+                }
+            }
+            if cb then
+                for i=1, #cb do
+                    print(radio)
+                    table.insert(Options, {
+                        title = cb[i].label,
+                        description = '',
+                        arrow = true,
+                        event = 'wasabi_boombox:selectSavedSong',
+                        args = {id = radio, link = cb[i].link, label = cb[i].label}
+                    })
+                end
             end
-        end
-        lib.registerContext({
-            id = 'boomboxSaved',
-            title = 'Boombox',
-            options = Options
-        })
-        lib.showContext('boomboxSaved')
-    end)
+            lib.registerContext({
+                id = 'boomboxSaved',
+                title = 'Boombox',
+                options = Options
+            })
+            lib.showContext('boomboxSaved')
+        end)
+    end
+elseif Config.Framework == "QB" then
+    savedSongsMenu = function(radio)
+        QBCore.Functions.TriggerCallback('wasabi_boombox:getSavedSongs', function(cb)
+            local radio = radio.id
+            local Options = {
+                {
+                    title = 'Save A Song',
+                    description = 'Save a song to play later',
+                    arrow = true,
+                    event = 'wasabi_boombox:saveSong',
+                    args = {id = radio}
+                }
+            }
+            if cb then
+                for i=1, #cb do
+                    print(radio)
+                    table.insert(Options, {
+                        title = cb[i].label,
+                        description = '',
+                        arrow = true,
+                        event = 'wasabi_boombox:selectSavedSong',
+                        args = {id = radio, link = cb[i].link, label = cb[i].label}
+                    })
+                end
+            end
+            lib.registerContext({
+                id = 'boomboxSaved',
+                title = 'Boombox',
+                options = Options
+            })
+            lib.showContext('boomboxSaved')
+        end)
+    end
 end

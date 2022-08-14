@@ -4,8 +4,8 @@
 fx_version "cerulean"
 game "gta5"
 
-description 'Wasabi ESX Boombox'
-version '2.0.1'
+description 'Wasabi ESX/QB Boombox'
+version '2.1.0'
 
 lua54 'yes'
 
@@ -24,7 +24,6 @@ shared_scripts {
 }
 
 dependencies {
-  'es_extended',
   'xsound',
   'ox_lib'
 }

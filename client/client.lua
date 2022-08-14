@@ -2,15 +2,20 @@
 ----------------- https://discord.gg/XJFNyMy3Bv ---------------
 ---------------------------------------------------------------
 ESX = nil
+QBCore = nil
 
 xSound = exports.xsound
 activeRadios = {}
 
-CreateThread(function()
-    while ESX == nil do
-        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Wait(0)
-    end
+Citizen.CreateThread(function()
+    if Config.Framework == "ESX" then
+        while ESX == nil do
+            TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+            Wait(0)
+        end
+    elseif Config.Framework == "QB" then
+            QBCore = exports['qb-core']:GetCoreObject()
+        end
 end)
 
 RegisterNetEvent('wasabi_boombox:useBoombox')
@@ -64,16 +69,11 @@ AddEventHandler('wasabi_boombox:soundStatus', function(type, musicId, data)
                 xSound:Position(musicId, data.position)
             end
         end
-				
         if type == "play" then
             xSound:PlayUrlPos(musicId, data.link, data.volume, data.position)
-            xSound:Distance(musicId, tonumber(data.distance))
-            xSound:setVolume(musicId, tonumber(data.volume))
-        end
-				
-        if type == "distance" then
             xSound:Distance(musicId, data.distance)
-        end				
+            xSound:setVolume(musicId, data.volume)
+        end
 
         if type == "volume" then
             xSound:setVolume(musicId, data.volume)

@@ -1,6 +1,6 @@
-# wasabi_boombox 2.0
+# wasabi_boombox 2.1
 
-This resource was created as a ESX free portable boombox script capable of playing youtube links.
+This resource was created as a ESX/QB free portable boombox script capable of playing youtube links.
 
 **UPDATE:**
 This is 2.0 of wasabi_boombox and no longer requires nh-context/keyboard unlike my previous version (It utilizes ox_lib).
@@ -20,15 +20,27 @@ Previous bugs such as boomboxes duplicating, falling over, and songs not stoppin
 ## Installation
 
 - Download this script
-- Import `SQL.sql` file to database
-- Download ox_lib(If you don't have): https://github.com/overextended/ox_lib/releases
-- Download qtarget(If you don't have): https://github.com/overextended/qtarget
-- Download xsound(If you don't have): https://github.com/Xogy/xsound
-- Put script in your `resources` directory
+- Import if framework ESX use this one > `ESXSQL.sql` if framework is QB use this one > `QBSQL.sql` file to database.
+- For QBCore Add item Name Into Items Table.
+- Download ox_lib(If you don't have): https://github.com/overextended/ox_lib/releases.
+- Download qtarget(If using ESX): https://github.com/overextended/qtarget.
+- Download qb-target(If using QB): https://github.com/qbcore-framework/qb-target.
+- Download xsound(If you don't have): https://github.com/Xogy/xsound.
+- Put script in your `resources` directory.
 - Make sure the following are running in your `server.cfg`:
+
+##QBCore SQl
+```
+CREATE TABLE IF NOT EXISTS `boombox_songs` (
+  `citizenid` varchar(64) NOT NULL,
+  `label` varchar(30) NOT NULL,
+  `link` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
 ```
 ensure ox_lib
-ensure qtarget
+ensure qtarget or ensure qb-target
 ensure xsound
 ensure wasabi_boombox
 ```

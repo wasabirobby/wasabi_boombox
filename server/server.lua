@@ -13,7 +13,7 @@ end
 if Config.Framework == "ESX" then
     ESX.RegisterUsableItem(Config.BoomboxItem, function(source)
         local xPlayer = ESX.GetPlayerFromId(source)
-        xPlayer.triggerEvent('wasabi_boombox:useBoombox')
+        TriggerClientEvent('wasabi_boombox:useBoombox', source)
         xPlayer.removeInventoryItem(Config.BoomboxItem, 1)
     end)
 elseif Config.Framework == "QB" then

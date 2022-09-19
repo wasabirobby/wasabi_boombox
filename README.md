@@ -1,10 +1,6 @@
-# wasabi_boombox 2.1
+# wasabi_boombox 2.1.1
 
 This resource was created as a ESX/QB free portable boombox script capable of playing youtube links.
-
-**UPDATE:**
-This is 2.0 of wasabi_boombox and no longer requires nh-context/keyboard unlike my previous version (It utilizes ox_lib).
-Previous bugs such as boomboxes duplicating, falling over, and songs not stopping should be resolved with this version moving forward as well as additional new features.
 
 <b>Features:</b>
 - Usable boombox

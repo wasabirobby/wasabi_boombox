@@ -1,21 +1,28 @@
 -----------------For support, scripts, and more----------------
 ----------------- https://discord.gg/XJFNyMy3Bv ---------------
 ---------------------------------------------------------------
-ESX = nil
-QBCore = nil
+if Config.Framework == "ESX" then
+	if not Config.OldESX then
+		ESX = exports["es_extended"]:getSharedObject()
+	else
+		ESX = nil
+	end
+else
+	QBCore = nil
+end
 
 xSound = exports.xsound
 activeRadios = {}
 
 Citizen.CreateThread(function()
-    if Config.Framework == "ESX" then
+    if Config.Framework == "ESX" and Config.OldESX then
         while ESX == nil do
             TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
             Wait(0)
         end
     elseif Config.Framework == "QB" then
             QBCore = exports['qb-core']:GetCoreObject()
-        end
+     end
 end)
 
 RegisterNetEvent('wasabi_boombox:useBoombox')

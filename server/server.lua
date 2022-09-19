@@ -1,11 +1,13 @@
 -----------------For support, scripts, and more----------------
 ----------------- https://discord.gg/XJFNyMy3Bv ---------------
 ---------------------------------------------------------------
-ESX = nil
-QBCore = nil
-
 if Config.Framework == "ESX" then
-        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        if Config.OldESX then
+                ESX = nil
+                TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        else
+                ESX = exports["es_extended"]:getSharedObject()
+        end
 elseif Config.Framework == "QB" then
         QBCore = exports['qb-core']:GetCoreObject()
 end

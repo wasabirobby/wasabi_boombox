@@ -5,7 +5,7 @@ fx_version "cerulean"
 game "gta5"
 
 description 'Wasabi ESX/QB Boombox'
-version '2.1.1'
+version '2.1.2'
 
 lua54 'yes'
 

@@ -1,5 +1,5 @@
 -----------------For support, scripts, and more----------------
------------------ https://discord.gg/XJFNyMy3Bv ---------------
+--------------- https://discord.gg/wasabiscripts  -------------
 ---------------------------------------------------------------
 if Config.Framework == "ESX" then
         if Config.OldESX then

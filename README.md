@@ -19,7 +19,7 @@ This resource was created as a ESX/QB free portable boombox script capable of pl
 - Import if framework ESX use this one > `ESXSQL.sql` if framework is QB use this one > `QBSQL.sql` file to database.
 - For QBCore Add item Name Into Items Table.
 - Download ox_lib(If you don't have): https://github.com/overextended/ox_lib/releases.
-- Download qtarget(If using ESX): https://github.com/overextended/qtarget.
+- Download qtarget or ox_target(If using ESX): https://github.com/overextended/qtarget.
 - Download qb-target(If using QB): https://github.com/qbcore-framework/qb-target.
 - Download xsound(If you don't have): https://github.com/Xogy/xsound.
 - Put script in your `resources` directory.

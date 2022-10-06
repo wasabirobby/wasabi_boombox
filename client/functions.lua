@@ -35,7 +35,7 @@ hasBoomBox = function(radio)
 end
 
 
-if Config.Framework == "ESX" then
+if Framework == "ESX" then
     boomboxPlaced = function(obj)
         local coords = GetEntityCoords(obj)
         local heading = GetEntityHeading(obj)
@@ -61,7 +61,7 @@ if Config.Framework == "ESX" then
                                 icon = 'fas fa-volume-up',
                                 label = 'Pick Up'
                             }
-    
+
                         },
                         job = 'all',
                         distance = 1.5
@@ -76,7 +76,7 @@ if Config.Framework == "ESX" then
             end
         end)
     end
-elseif Config.Framework == "QB" then
+elseif Framework == "QB" then
     boomboxPlaced = function(obj)
         local coords = GetEntityCoords(obj)
         local heading = GetEntityHeading(obj)
@@ -102,7 +102,7 @@ elseif Config.Framework == "QB" then
                                 icon = 'fas fa-volume-up',
                                 label = 'Pick Up'
                             }
-    
+
                         },
                         job = 'all',
                         distance = 1.5
@@ -223,7 +223,7 @@ selectSavedSong = function(data)
     lib.showContext('selectSavedSong')
 end
 
-if Config.Framework == "ESX" then
+if Framework == "ESX" then
     savedSongsMenu = function(radio)
         ESX.TriggerServerCallback('wasabi_boombox:getSavedSongs', function(cb)
             local radio = radio.id
@@ -256,7 +256,7 @@ if Config.Framework == "ESX" then
             lib.showContext('boomboxSaved')
         end)
     end
-elseif Config.Framework == "QB" then
+elseif Framework == "QB" then
     savedSongsMenu = function(radio)
         QBCore.Functions.TriggerCallback('wasabi_boombox:getSavedSongs', function(cb)
             local radio = radio.id

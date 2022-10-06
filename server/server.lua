@@ -1,24 +1,47 @@
 -----------------For support, scripts, and more----------------
 --------------- https://discord.gg/wasabiscripts  -------------
 ---------------------------------------------------------------
-if Config.Framework == "ESX" then
-        if Config.OldESX then
-                ESX = nil
-                TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        else
-                ESX = exports["es_extended"]:getSharedObject()
-        end
-elseif Config.Framework == "QB" then
-        QBCore = exports['qb-core']:GetCoreObject()
+
+Framework = nil
+
+if GetResourceState('es_extended') == 'started' or GetResourceState('es_extended') == 'starting' then
+    Framework = 'ESX'
+    ESX = exports['es_extended']:getSharedObject()
+elseif GetResourceState('qb-core') == 'started' or GetResourceState('qb-core') == 'starting' then
+    Framework = 'qb'
+    QBCore = exports['qb-core']:GetCoreObject()
+else
+    print("^0[^1ERROR^0] The framework could not be initialised!^0")
+    print("^0[^1ERROR^0] For Support: https://discord.gg/wasabiscripts^0")
 end
 
-if Config.Framework == "ESX" then
+MySQL.ready(function()
+    if Framework == "ESX" then
+        MySQL.Sync.execute(
+            "CREATE TABLE IF NOT EXISTS `boombox_songs` (" ..
+                "`identifier` varchar(64) NOT NULL, " ..
+                "`label` varchar(30) NOT NULL, " ..
+                "`link` longtext NOT NULL " ..
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; "
+        )
+    elseif Framework == "QB" then
+        MySQL.Sync.execute(
+            "CREATE TABLE IF NOT EXISTS `boombox_songs` (" ..
+                "`citizenid` varchar(64) NOT NULL, " ..
+                "`label` varchar(30) NOT NULL, " ..
+                "`link` longtext NOT NULL " ..
+            ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; "
+        )
+    end
+end)
+
+if Framework == "ESX" then
     ESX.RegisterUsableItem(Config.BoomboxItem, function(source)
         local xPlayer = ESX.GetPlayerFromId(source)
         TriggerClientEvent('wasabi_boombox:useBoombox', source)
         xPlayer.removeInventoryItem(Config.BoomboxItem, 1)
     end)
-elseif Config.Framework == "QB" then
+elseif Framework == "QB" then
     QBCore.Functions.CreateUseableItem(Config.BoomboxItem, function(source)
         local Player = QBCore.Functions.GetPlayer(source)
         TriggerClientEvent('wasabi_boombox:useBoombox', source)
@@ -30,12 +53,12 @@ RegisterServerEvent('wasabi_boombox:deleteObj', function(netId)
     TriggerClientEvent('wasabi_boombox:deleteObj', -1, netId)
 end)
 
-if Config.Framework == "ESX" then
+if Framework == "ESX" then
     RegisterServerEvent('wasabi_boombox:objDeleted', function()
         local xPlayer = ESX.GetPlayerFromId(source)
         xPlayer.addInventoryItem(Config.BoomboxItem, 1)
     end)
-elseif Config.Framework == "QB" then
+elseif Framework == "QB" then
     RegisterServerEvent('wasabi_boombox:objDeleted', function()
         local Player = QBCore.Functions.GetPlayer(source)
         Player.Functions.AddItem(Config.BoomboxItem, 1)
@@ -52,7 +75,7 @@ AddEventHandler("wasabi_boombox:syncActive", function(activeRadios)
     TriggerClientEvent("wasabi_boombox:syncActive", -1, activeRadios)
 end)
 
-if Config.Framework == "ESX" then
+if Framework == "ESX" then
     RegisterServerEvent('wasabi_boombox:save')
     AddEventHandler('wasabi_boombox:save', function(name, link)
         local xPlayer = ESX.GetPlayerFromId(source)
@@ -62,7 +85,7 @@ if Config.Framework == "ESX" then
             ['@link'] = link
         })
     end)
-elseif Config.Framework == "QB" then
+elseif Framework == "QB" then
     RegisterServerEvent('wasabi_boombox:save')
     AddEventHandler('wasabi_boombox:save', function(name, link)
         local Player = QBCore.Functions.GetPlayer(source)
@@ -74,7 +97,7 @@ elseif Config.Framework == "QB" then
     end)
 end
 
-if Config.Framework == "ESX" then
+if Framework == "ESX" then
     RegisterServerEvent('wasabi_boombox:deleteSong')
     AddEventHandler('wasabi_boombox:deleteSong', function(data)
         local xPlayer = ESX.GetPlayerFromId(source)
@@ -84,7 +107,7 @@ if Config.Framework == "ESX" then
             ["@link"] = data.link,
         })
     end)
-elseif Config.Framework == "QB" then
+elseif Framework == "QB" then
     RegisterServerEvent('wasabi_boombox:deleteSong')
     AddEventHandler('wasabi_boombox:deleteSong', function(data)
         local Player = QBCore.Functions.GetPlayer(source)
@@ -96,7 +119,7 @@ elseif Config.Framework == "QB" then
     end)
 end
 
-if Config.Framework == "ESX" then
+if Framework == "ESX" then
     ESX.RegisterServerCallback('wasabi_boombox:getSavedSongs', function(source, cb)
         local savedSongs = {}
         local xPlayer = ESX.GetPlayerFromId(source)
@@ -115,7 +138,7 @@ if Config.Framework == "ESX" then
             end
         end)
     end)
-elseif Config.Framework == "QB" then
+elseif Framework == "QB" then
     QBCore.Functions.CreateCallback('wasabi_boombox:getSavedSongs', function(source, cb)
         local savedSongs = {}
         local Player = QBCore.Functions.GetPlayer(source)

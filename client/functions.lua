@@ -1,6 +1,7 @@
 -----------------For support, scripts, and more----------------
 --------------- https://discord.gg/wasabiscripts  -------------
 ---------------------------------------------------------------
+
 loadModel = function(model)
     while not HasModelLoaded(model) do Wait(0) RequestModel(model) end
     return model

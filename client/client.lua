@@ -1,29 +1,20 @@
 -----------------For support, scripts, and more----------------
 --------------- https://discord.gg/wasabiscripts  -------------
 ---------------------------------------------------------------
-if Config.Framework == "ESX" then
-	if not Config.OldESX then
-		ESX = exports["es_extended"]:getSharedObject()
-	else
-		ESX = nil
-	end
-else
-	QBCore = nil
-end
 
 xSound = exports.xsound
 activeRadios = {}
+Framework = nil
 
-Citizen.CreateThread(function()
-    if Config.Framework == "ESX" and Config.OldESX then
-        while ESX == nil do
-            TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-            Wait(0)
-        end
-    elseif Config.Framework == "QB" then
-            QBCore = exports['qb-core']:GetCoreObject()
-     end
-end)
+if GetResourceState('es_extended') == 'started' or GetResourceState('es_extended') == 'starting' then
+    Framework = 'ESX'
+    ESX = exports['es_extended']:getSharedObject()
+elseif GetResourceState('qb-core') == 'started' or GetResourceState('qb-core') == 'starting' then
+    Framework = 'qb'
+    QBCore = exports['qb-core']:GetCoreObject()
+else
+    print("^0[^1ERROR^0] Check the Server console for infos!^0")
+end
 
 RegisterNetEvent('wasabi_boombox:useBoombox')
 AddEventHandler('wasabi_boombox:useBoombox', function()
@@ -43,7 +34,7 @@ RegisterNetEvent('wasabi_boombox:deleteObj', function(netId)
         if not DoesEntityExist(NetToObj(netId)) then
             TriggerServerEvent('wasabi_boombox:objDeleted')
         end
-    end   
+    end
 end)
 
 AddEventHandler('wasabi_boombox:pickup', function()
@@ -85,7 +76,7 @@ AddEventHandler('wasabi_boombox:soundStatus', function(type, musicId, data)
         if type == "volume" then
             xSound:setVolume(musicId, data.volume)
         end
-    
+
         if type == "stop" then
             xSound:Destroy(musicId)
         end

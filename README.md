@@ -1,4 +1,4 @@
-# wasabi_boombox 2.1.1
+# wasabi_boombox
 
 This resource was created as a ESX/QB free portable boombox script capable of playing youtube links.
 

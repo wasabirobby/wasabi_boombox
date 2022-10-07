@@ -35,7 +35,6 @@ hasBoomBox = function(radio)
     end)
 end
 
-
 if Framework == "ESX" then
     boomboxPlaced = function(obj)
         local coords = GetEntityCoords(obj)

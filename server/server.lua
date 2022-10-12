@@ -4,8 +4,8 @@
 
 Framework = nil
 
-local Weebhook = "" -- Put your Webhook here to log Play and Saves
-local BotUsername = "BoomBox Logs" -- Name for the Bot
+local Webhook = "WEBHOOK_HERE" -- Put your Discord webhook here to log Play and Saves
+local BotUsername = "Wasabi Boombox" -- Name for the Bot
 
 if GetResourceState('es_extended') == 'started' or GetResourceState('es_extended') == 'starting' then
     Framework = 'ESX'
@@ -183,17 +183,18 @@ end
 ----- Boom Box Discord Hook System -----
 
 SongConfirmed = function(color, name, message, footer)
-
-    local SongConfirmed = {
-            {
-                ["color"] = color,
-                ["title"] = "**".. name .."**",
-                ["description"] = message,
-                ["footer"] = {
-                    ["text"] = footer,
-                },
+    if Webhook and Webhook ~= 'WEBHOOK_HERE' then
+        local SongConfirmed = {
+                {
+                    ["color"] = color,
+                    ["title"] = "**".. name .."**",
+                    ["description"] = message,
+                    ["footer"] = {
+                        ["text"] = footer,
+                    },
+                }
             }
-        }
-    
-      PerformHttpRequest(Weebhook, function(err, text, headers) end, 'POST', json.encode({username = BotUsername, embeds = SongConfirmed}), { ['Content-Type'] = 'application/json' })
+
+          PerformHttpRequest(Webhook, function(err, text, headers) end, 'POST', json.encode({username = BotUsername, embeds = SongConfirmed}), { ['Content-Type'] = 'application/json' })
+    end
 end

@@ -11,6 +11,7 @@ This resource was created as a ESX/QB free portable boombox script capable of pl
 - Stop music on boombox pick-up
 - Play music truly anywhere
 - Uses 0.00ms on idle and 0.01ms~ when boombox prop attached to hand
+- Optional Discord webhooks(Set in `server.lua`)
 
 
 ## Installation

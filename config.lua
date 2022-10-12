@@ -4,6 +4,8 @@
 
 Config = {}
 
+Config.Weebhook = ""
+
 Config.checkForUpdates = true -- Check for Updates?
 
 Config.BoomboxItem = 'boombox'

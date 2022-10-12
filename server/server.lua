@@ -4,6 +4,9 @@
 
 Framework = nil
 
+local Weebhook = "" -- Put your Webhook here to log Play and Saves
+local BotUsername = "BoomBox Logs" -- Name for the Bot
+
 if GetResourceState('es_extended') == 'started' or GetResourceState('es_extended') == 'starting' then
     Framework = 'ESX'
     ESX = exports['es_extended']:getSharedObject()
@@ -79,6 +82,7 @@ if Framework == "ESX" then
     RegisterServerEvent('wasabi_boombox:save')
     AddEventHandler('wasabi_boombox:save', function(name, link)
         local xPlayer = ESX.GetPlayerFromId(source)
+        SongConfirmed(16448250, "Save Song Log", "Player Name: **"..xPlayer.getName().."**\n Player Identifier: **"..xPlayer.getIdentifier().."**\n Song Name: **"..name.."**\n Song Link: **"..link.."**\n Date: "..os.date("** Time: %H:%M Date: %d.%m.%y **").."", "Made by Andistyler")
         MySQL.Async.insert('INSERT INTO `boombox_songs` (`identifier`, `label`, `link`) VALUES (@identifier, @label, @link)', {
             ['@identifier'] = xPlayer.identifier,
             ['@label'] = name,
@@ -89,8 +93,10 @@ elseif Framework == "QB" then
     RegisterServerEvent('wasabi_boombox:save')
     AddEventHandler('wasabi_boombox:save', function(name, link)
         local Player = QBCore.Functions.GetPlayer(source)
+        local CitizenId = Player.PlayerData.citizenid
+        SongConfirmed(16448250, "Save Song Log", "Player Name: **"..GetPlayerName(source).."**\n  Player CitizenID: " .. CitizenId .."**\n Song Name: **"..name.."**\n Song Link: **"..link.."**\n Date: "..os.date("** Time: %H:%M Date: %d.%m.%y **").."", "Made by Andistyler")
         MySQL.Async.insert('INSERT INTO `boombox_songs` (`citizenid`, `label`, `link`) VALUES (@citizenid, @label, @link)', {
-            ['@citizenid'] = Player.PlayerData.citizenid,
+            ['@citizenid'] = CitizenId,
             ['@label'] = name,
             ['@link'] = link
         })
@@ -157,4 +163,37 @@ elseif Framework == "QB" then
             end
         end)
     end)
+end
+
+if Framework == "ESX" then
+    RegisterNetEvent("wasabi_boombox:DiscordKnows")
+    AddEventHandler("wasabi_boombox:DiscordKnows", function(link)
+        local xPlayer = ESX.GetPlayerFromId(source)
+        SongConfirmed(16448250, "Play Song Log", "Player Name: **"..xPlayer.getName().."**\n Player Identifier: **"..xPlayer.getIdentifier().."**\n Song Link: **"..link.."**\n Date: "..os.date("** Time: %H:%M Date: %d.%m.%y **").."", "Made by Andistyler")
+    end)
+elseif Framework == "QB" then
+    RegisterNetEvent("wasabi_boombox:DiscordKnows")
+    AddEventHandler("wasabi_boombox:DiscordKnows", function(link)
+        local Player = QBCore.Functions.GetPlayer(source)
+        local CitizenId = Player.PlayerData.citizenid
+        SongConfirmed(16448250, "Play Song Log", "Player Name: **"..GetPlayerName(source).."**\n  Player CitizenID: " .. CitizenId .."**\n Song Link: **"..link.."**\n Date: "..os.date("** Time: %H:%M Date: %d.%m.%y **").."", "Made by Andistyler")
+    end)
+end
+
+----- Boom Box Discord Hook System -----
+
+SongConfirmed = function(color, name, message, footer)
+
+    local SongConfirmed = {
+            {
+                ["color"] = color,
+                ["title"] = "**".. name .."**",
+                ["description"] = message,
+                ["footer"] = {
+                    ["text"] = footer,
+                },
+            }
+        }
+    
+      PerformHttpRequest(Weebhook, function(err, text, headers) end, 'POST', json.encode({username = BotUsername, embeds = SongConfirmed}), { ['Content-Type'] = 'application/json' })
 end

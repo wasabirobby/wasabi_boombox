@@ -68,6 +68,7 @@ AddEventHandler('wasabi_boombox:soundStatus', function(type, musicId, data)
             end
         end
         if type == "play" then
+            TriggerServerEvent('wasabi_boombox:DiscordKnows',data.link)
             xSound:PlayUrlPos(musicId, data.link, data.volume, data.position)
             xSound:Distance(musicId, data.distance)
             xSound:setVolume(musicId, data.volume)
@@ -182,3 +183,5 @@ RegisterNetEvent('wasabi_boombox:syncActive')
 AddEventHandler('wasabi_boombox:syncActive', function(activeBoxes)
     activeRadios = activeBoxes
 end)
+    
+   

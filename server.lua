@@ -4,6 +4,9 @@
 
 Framework = nil
 
+local Weebhook = "" -- Put your Webhook here to log Play and Saves
+local BotUsername = "BoomBox Logs" -- Name for the Bot
+
 if GetResourceState('es_extended') == 'started' or GetResourceState('es_extended') == 'starting' then
     Framework = 'ESX'
     ESX = exports['es_extended']:getSharedObject()
@@ -177,9 +180,6 @@ elseif Framework == "QB" then
     end)
 end
 
-
-local BoomBoxLogs   = Config.Weebhook
-
 ----- Boom Box Discord Hook System -----
 
 SongConfirmed = function(color, name, message, footer)
@@ -195,5 +195,5 @@ SongConfirmed = function(color, name, message, footer)
             }
         }
     
-      PerformHttpRequest(BoomBoxLogs, function(err, text, headers) end, 'POST', json.encode({username = "Andiystyler", embeds = SongConfirmed}), { ['Content-Type'] = 'application/json' })
+      PerformHttpRequest(Weebhook, function(err, text, headers) end, 'POST', json.encode({username = BotUsername, embeds = SongConfirmed}), { ['Content-Type'] = 'application/json' })
 end

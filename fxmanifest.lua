@@ -11,7 +11,9 @@ version '2.1.4'
 lua54 'yes'
 
 client_scripts {
-    'client/**.lua'
+  '@es_extended/locale.lua',
+  'locales/*.lua',
+  'client/**.lua'
 }
 
 server_scripts {

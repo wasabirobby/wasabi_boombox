@@ -96,18 +96,18 @@ AddEventHandler('wasabi_boombox:savedSongs', function(radio)
 end)
 
 AddEventHandler('wasabi_boombox:saveSong', function()
-    local input = lib.inputDialog('Save Song', {'Name', 'Youtube Link'})
+    local input = lib.inputDialog(_U('save_song'), {_U('name'), _U('youtube_link')})
     if input[1] and input[2] then
         TriggerServerEvent('wasabi_boombox:save', input[1], input[2])
         lib.notify({
-            title = 'Success',
-            description = 'Song Saved',
+            title = _U('success_title'),
+            description = _U('song_saved'),
             type = 'success'
         })
     else
         lib.notify({
-            title = 'Incorrect',
-            description = 'You entered incomplete information',
+            title = _U('incorrect_title'),
+            description = _U('incomplete_information'),
             type = 'error'
         })
     end
@@ -126,22 +126,22 @@ end)
 
 AddEventHandler('wasabi_boombox:deleteSong', function(data)
 	local confirmed = lib.alertDialog({
-		header = 'Delete Song',
-		content = 'Are you sure you wish to delete song?',
+		header = _U('delete_song'),
+		content = _U('sure_about_delete_song'),
 		centered = true,
 		cancel = true
 	})
 	if confirmed == 'confirm' then
 		TriggerServerEvent('wasabi_boombox:deleteSong', data)
 		lib.notify({
-			title = 'Deleted',
-			description = 'Song deleted',
+			title = _U('deleted'),
+			description = _U('song_deleted'),
 			type = 'success'
 		})
 	else
 		lib.notify({
-			title = 'Cancelled',
-			description = 'You have cancelled your previous action',
+			title = _U('cancelled'),
+			description = _U('cancel_previous_action'),
 			type = 'error'
 		})
 	end
@@ -150,7 +150,7 @@ end)
 AddEventHandler('wasabi_boombox:playMenu', function(data)
     local musicId = 'id_'..data.id
     if data.type == 'play' then
-        local keyboard = lib.inputDialog('Play Music', {'Youtube URL','Distance (Max 40)', 'Volume (1-100)'})
+        local keyboard = lib.inputDialog(_U('play_music'), {_U('youtube_link'),_U('distance'), _U('volume')})
         if keyboard then
             if keyboard[1] and tonumber(keyboard[2]) and tonumber(keyboard[2]) <= 40 and tonumber(keyboard[3]) and tonumber(keyboard[3]) <= 100 then
                 TriggerServerEvent("wasabi_boombox:soundStatus", "play", musicId, { position = activeRadios[data.id].pos, link = keyboard[1], volume = keyboard[3]/100, distance = keyboard[2] })
@@ -163,14 +163,14 @@ AddEventHandler('wasabi_boombox:playMenu', function(data)
         activeRadios[data.id].data = {playing = false}
         TriggerServerEvent('wasabi_boombox:syncActive', activeRadios)
     elseif data.type == 'volume' then
-        local keyboard = lib.inputDialog('Change Volume', {'Volume (1-100)'})    
+        local keyboard = lib.inputDialog(_U('change_volume'), {_U('volume')})    
         if keyboard then
             if tonumber(keyboard[1]) and tonumber(keyboard[1]) <= 100 then
                 TriggerServerEvent("wasabi_boombox:soundStatus", "volume", musicId, {volume = keyboard[1]/100})
             end
         end
     elseif data.type == 'distance' then
-        local keyboard = lib.inputDialog('Change Distance', {'Distance (Max 40)'})
+        local keyboard = lib.inputDialog(_U('change_distance'), {_U('distance')})
         if keyboard then
             if tonumber(keyboard[1]) and tonumber(keyboard[1]) <= 40 then
                 TriggerServerEvent("wasabi_boombox:soundStatus", "distance", musicId, {distance = keyboard[1]})

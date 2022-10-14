@@ -46,5 +46,6 @@ Locales['en'] = {
     ['save_a_song']                = 'Save a song',
     ['save_a_song_to_play_later']  = 'Save a song to play later',
     ['interact']                   = 'Interaction',
-    ['pickup']                     = 'Pick Up'
+    ['pickup']                     = 'Pick Up',
+    ['manage_song']                = 'Manage Song'
 }

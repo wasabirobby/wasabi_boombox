@@ -46,5 +46,6 @@ Locales['cs'] = {
     ['save_a_song']                = 'Uložit Písničku',
     ['save_a_song_to_play_later']  = 'Uložit na pozdější přehrání',
     ['interact']                   = 'Interakce',
-    ['pickup']                     = 'Zvednout'
+    ['pickup']                     = 'Zvednout',
+    ['manage_song']                = 'Spravovat písničku'
 }

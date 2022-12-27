@@ -76,7 +76,7 @@ if Framework == "ESX" then
             end
         end)
     end
-elseif Framework == "qB" then
+elseif Framework == "qb" then
     boomboxPlaced = function(obj)
         local coords = GetEntityCoords(obj)
         local heading = GetEntityHeading(obj)

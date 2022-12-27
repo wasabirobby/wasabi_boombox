@@ -27,7 +27,7 @@ MySQL.ready(function()
                 "`link` longtext NOT NULL " ..
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; "
         )
-    elseif Framework == "QB" then
+    elseif Framework == "qb" then
         MySQL.Sync.execute(
             "CREATE TABLE IF NOT EXISTS `boombox_songs` (" ..
                 "`citizenid` varchar(64) NOT NULL, " ..
@@ -44,7 +44,7 @@ if Framework == "ESX" then
         TriggerClientEvent('wasabi_boombox:useBoombox', source)
         xPlayer.removeInventoryItem(Config.BoomboxItem, 1)
     end)
-elseif Framework == "QB" then
+elseif Framework == "qb" then
     QBCore.Functions.CreateUseableItem(Config.BoomboxItem, function(source)
         local Player = QBCore.Functions.GetPlayer(source)
         TriggerClientEvent('wasabi_boombox:useBoombox', source)
@@ -61,7 +61,7 @@ if Framework == "ESX" then
         local xPlayer = ESX.GetPlayerFromId(source)
         xPlayer.addInventoryItem(Config.BoomboxItem, 1)
     end)
-elseif Framework == "QB" then
+elseif Framework == "qb" then
     RegisterServerEvent('wasabi_boombox:objDeleted', function()
         local Player = QBCore.Functions.GetPlayer(source)
         Player.Functions.AddItem(Config.BoomboxItem, 1)
@@ -89,7 +89,7 @@ if Framework == "ESX" then
             ['@link'] = link
         })
     end)
-elseif Framework == "QB" then
+elseif Framework == "qb" then
     RegisterServerEvent('wasabi_boombox:save')
     AddEventHandler('wasabi_boombox:save', function(name, link)
         local Player = QBCore.Functions.GetPlayer(source)
@@ -113,7 +113,7 @@ if Framework == "ESX" then
             ["@link"] = data.link,
         })
     end)
-elseif Framework == "QB" then
+elseif Framework == "qb" then
     RegisterServerEvent('wasabi_boombox:deleteSong')
     AddEventHandler('wasabi_boombox:deleteSong', function(data)
         local Player = QBCore.Functions.GetPlayer(source)
@@ -144,7 +144,7 @@ if Framework == "ESX" then
             end
         end)
     end)
-elseif Framework == "QB" then
+elseif Framework == "qb" then
     QBCore.Functions.CreateCallback('wasabi_boombox:getSavedSongs', function(source, cb)
         local savedSongs = {}
         local Player = QBCore.Functions.GetPlayer(source)
@@ -171,7 +171,7 @@ if Framework == "ESX" then
         local xPlayer = ESX.GetPlayerFromId(source)
         SongConfirmed(16448250, "Play Song Log", "Player Name: **"..xPlayer.getName().."**\n Player Identifier: **"..xPlayer.getIdentifier().."**\n Song Link: **"..link.."**\n Date: "..os.date("** Time: %H:%M Date: %d.%m.%y **").."", "Made by Andistyler")
     end)
-elseif Framework == "QB" then
+elseif Framework == "qb" then
     RegisterNetEvent("wasabi_boombox:DiscordKnows")
     AddEventHandler("wasabi_boombox:DiscordKnows", function(link)
         local Player = QBCore.Functions.GetPlayer(source)

@@ -76,7 +76,7 @@ if Framework == "ESX" then
             end
         end)
     end
-elseif Framework == "QB" then
+elseif Framework == "qb" then
     boomboxPlaced = function(obj)
         local coords = GetEntityCoords(obj)
         local heading = GetEntityHeading(obj)
@@ -256,7 +256,7 @@ if Framework == "ESX" then
             lib.showContext('boomboxSaved')
         end)
     end
-elseif Framework == "QB" then
+elseif Framework == "qb" then
     savedSongsMenu = function(radio)
         QBCore.Functions.TriggerCallback('wasabi_boombox:getSavedSongs', function(cb)
             local radio = radio.id

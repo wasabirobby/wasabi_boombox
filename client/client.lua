@@ -81,6 +81,10 @@ AddEventHandler('wasabi_boombox:soundStatus', function(type, musicId, data)
         if type == "stop" then
             xSound:Destroy(musicId)
         end
+
+        if type == "distance" then
+            xSound:Distance(musicId, data.distance)
+        end
     end)
 end)
 

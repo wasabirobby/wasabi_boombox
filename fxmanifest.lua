@@ -28,3 +28,7 @@ dependencies {
   'xsound',
   'ox_lib'
 }
+
+files {
+  'locales/*.json'
+}

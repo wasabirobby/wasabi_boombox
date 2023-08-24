@@ -1,7 +1,7 @@
 -----------------For support, scripts, and more----------------
 --------------- https://discord.gg/wasabiscripts  -------------
 ---------------------------------------------------------------
-
+lib.locale()
 loadModel = function(model)
     while not HasModelLoaded(model) do Wait(0) RequestModel(model) end
     return model
@@ -17,8 +17,8 @@ hasBoomBox = function(radio)
     CreateThread(function()
         if Config.InstructionNotification then
             lib.notify({
-                title = 'Instructions',
-                description = 'Press E to drop boombox',
+                title = locale('instructions'),
+                description = locale('drop_boombox'),
                 type = 'success'
             })
         end
@@ -54,12 +54,12 @@ if Framework == "ESX" then
                             {
                                 event = 'wasabi_boombox:interact',
                                 icon = 'fas fa-hand-paper',
-                                label = 'Interact',
+                                label = locale('interact'),
                             },
                             {
                                 event = 'wasabi_boombox:pickup',
                                 icon = 'fas fa-volume-up',
-                                label = 'Pick Up'
+                                label = locale('pickup')
                             }
 
                         },
@@ -95,12 +95,12 @@ elseif Framework == "qb" then
                             {
                                 event = 'wasabi_boombox:interact',
                                 icon = 'fas fa-hand-paper',
-                                label = 'Interact',
+                                label = locale('interact'),
                             },
                             {
                                 event = 'wasabi_boombox:pickup',
                                 icon = 'fas fa-volume-up',
-                                label = 'Pick Up'
+                                label = locale('pickup')
                             }
 
                         },
@@ -137,15 +137,15 @@ interactBoombox = function(radio, radioCoords)
             title = 'Boombox',
             options = {
                 {
-                    title = 'Play Music',
-                    description = 'Play Music On Speaker',
+                    title = locale('play_music'),
+                    description = locale('play_music_on_speaker'),
                     arrow = true,
                     event = 'wasabi_boombox:playMenu',
                     args = {type = 'play', id = radio}
                 },
                 {
-                    title = 'Saved Songs',
-                    description = 'Songs you previously saved',
+                    title = locale('saved_songs'),
+                    description = locale('previously_saved_songs'),
                     arrow = true,
                     event = 'wasabi_boombox:savedSongs',
                     args = {id = radio}
@@ -156,39 +156,39 @@ interactBoombox = function(radio, radioCoords)
     else
         lib.registerContext({
             id = 'boomboxSecond',
-            title = 'Boombox',
+            title = locale('boombox_title'),
             options = {
                 {
-                    title = 'Change Music',
-                    description = 'Change music on speaker',
+                    title = locale('change_music'),
+                    description = locale('change_music_on_speaker'),
                     arrow = true,
                     event = 'wasabi_boombox:playMenu',
                     args = {type = 'play', id = radio}
                 },
                 {
-                    title = 'Saved Songs',
-                    description = 'Songs you previously saved',
+                    title = locale('saved_songs'),
+                    description = locale('previously_saved_songs'),
                     arrow = true,
                     event = 'wasabi_boombox:savedSongs',
                     args = {id = radio}
                 },
                 {
-                    title = 'Stop Music',
-                    description = 'Stop music on speaker',
+                    title = locale('stop_music'),
+                    description = locale('stop_music_on_speaker'),
                     arrow = false,
                     event = 'wasabi_boombox:playMenu',
                     args = {type = 'stop', id = radio}
                 },
                 {
-                    title = 'Adjust Volume',
-                    description = 'Change volume on speaker',
+                    title = locale('adjust_volume'),
+                    description = locale('change_volume_on_speaker'),
                     arrow = false,
                     event = 'wasabi_boombox:playMenu',
                     args = {type = 'volume', id = radio}
                 },
                 {
-                    title = 'Change Distance',
-                    description = 'Change distance on speaker',
+                    title = locale('change_distance'),
+                    description = locale('change_distance_on_speaker'),
                     arrow = false,
                     event = 'wasabi_boombox:playMenu',
                     args = {type = 'distance', id = radio}
@@ -202,18 +202,18 @@ end
 selectSavedSong = function(data)
     lib.registerContext({
         id = 'selectSavedSong',
-        title = 'Manage Song',
+        title = locale('manage_song'),
         options = {
             {
-                title = 'Play Song',
-                description = 'Play this song',
+                title = locale('play_song'),
+                description = locale('play_this_song'),
                 arrow = false,
                 event = 'wasabi_boombox:playSavedSong',
                 args = data
             },
             {
-                title = 'Delete Song',
-                description = 'Delete this song',
+                title = locale('delete_song'),
+                description = locale('delete_this_song'),
                 arrow = true,
                 event = 'wasabi_boombox:deleteSong',
                 args = data
@@ -229,8 +229,8 @@ if Framework == "ESX" then
             local radio = radio.id
             local Options = {
                 {
-                    title = 'Save A Song',
-                    description = 'Save a song to play later',
+                    title = locale('save_a_song'),
+                    description = locale('save_a_song_to_play_later'),
                     arrow = true,
                     event = 'wasabi_boombox:saveSong',
                     args = {id = radio}
@@ -250,7 +250,7 @@ if Framework == "ESX" then
             end
             lib.registerContext({
                 id = 'boomboxSaved',
-                title = 'Boombox',
+                title = locale('boombox_title'),
                 options = Options
             })
             lib.showContext('boomboxSaved')
@@ -262,8 +262,8 @@ elseif Framework == "qb" then
             local radio = radio.id
             local Options = {
                 {
-                    title = 'Save A Song',
-                    description = 'Save a song to play later',
+                    title = locale('save_a_song'),
+                    description = locale('save_a_song_to_play_later'),
                     arrow = true,
                     event = 'wasabi_boombox:saveSong',
                     args = {id = radio}
@@ -283,7 +283,7 @@ elseif Framework == "qb" then
             end
             lib.registerContext({
                 id = 'boomboxSaved',
-                title = 'Boombox',
+                title = locale('boombox_title'),
                 options = Options
             })
             lib.showContext('boomboxSaved')
